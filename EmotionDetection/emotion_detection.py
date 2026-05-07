@@ -20,16 +20,18 @@ def emotion_detector(text_to_analyze):
 
     dominant_emotion = max(emotions, key=emotions.get)
 
-    result = {
-        'anger': anger,
-        'disgust': disgust,
-        'fear': fear,
-        'joy': joy,
-        'sadness': sadness,
-        'dominant_emotion': dominant_emotion
-    }
-
-    return formatted_response
+    if response.status_code == 200:
+        return formatted_response
+    elif response.status_code == 400:
+        return {
+            "anger": emotions["anger"],
+            "disgust": emotions["disgust"],
+            "fear": emotions["fear"],
+            "joy": emotions["joy"],
+            "sadness": emotions["sadness"],
+            "dominant_emotion": dominant_emotion
+        }
+    # return formatted_response
 
 def emotion_predictor(text_to_analyze):
 
